@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <RootNamespace>BlueMarsh.Utf8Clip</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWpf>true</UseWpf>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
+    <Company>bluemarsh</Company>
+    <Copyright>Copyright (c) 2019 Aaron Meyers</Copyright>
+    <PackAsTool>true</PackAsTool>
+  </PropertyGroup>
+
+</Project>
