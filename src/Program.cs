@@ -48,19 +48,36 @@ namespace BlueMarsh.Utf8Clip
             Console.WriteLine($"utf8clip {ver}");
             Console.WriteLine();
             Console.WriteLine("If started with file/piped input:");
-            Console.WriteLine("    Copies the input, interpreted as UTF-8 text, to the Windows clipboard.");
+            Console.WriteLine("    Copies the input, interpreted as UTF-8 text (*), to the Windows clipboard.");
             Console.WriteLine("Otherwise:");
             Console.WriteLine("    Prints the contents of the Windows clipboard to output as UTF-8 text.");
             Console.WriteLine();
+            Console.WriteLine("(*) If there is a byte-order mark in the input it will be respected, e.g. for");
+            Console.WriteLine("UTF-16 encoded files.");
+            Console.WriteLine();
             Console.WriteLine("Examples:");
-            Console.WriteLine("    dir | utf8clip        Places a copy of the current directory");
-            Console.WriteLine("                          listing on to the Windows clipboard.");
+            Console.WriteLine("    <program> | utf8clip  Places a copy of the UTF-8 output from <program>");
+            Console.WriteLine("                          on to the Windows clipboard. Note that most native");
+            Console.WriteLine("                          Windows commands like dir do not write UTF-8 output");
+            Console.WriteLine("                          unless the console codepage is changed with chcp.");
             Console.WriteLine();
-            Console.WriteLine("    utf8clip < README.md  Places a copy of the text from README.md");
-            Console.WriteLine("                          on to the Windows clipboard.");
+            Console.WriteLine("    utf8clip < README.md  Places a copy of the text from README.md on to the");
+            Console.WriteLine("                          Windows clipboard.");
             Console.WriteLine();
-            Console.WriteLine("    utf8clip              Writes the current contents of the");
-            Console.WriteLine("                          Windows clipboard to the console.");
+            Console.WriteLine("    utf8clip              Writes the current contents of the Windows clipboard");
+            Console.WriteLine("                          to the console.");
+            Console.WriteLine();
+            Console.WriteLine("PowerShell Core Examples:");
+            Console.WriteLine("    ls | utf8clip         Places a copy of the current directory listing");
+            Console.WriteLine("                          on to the Windows clipboard. This works correctly as");
+            Console.WriteLine("                          PowerShell Core uses UTF-8 output by default.");
+            Console.WriteLine();
+            Console.WriteLine("    cat .\\README.md | utf8clip");
+            Console.WriteLine("                          Places a copy of the text from README.md on to the");
+            Console.WriteLine("                          Windows clipboard.");
+            Console.WriteLine();
+            Console.WriteLine("    utf8clip              Writes the current contents of the Windows clipboard");
+            Console.WriteLine("                          to the console.");
         }
 
         private static void ReadToClipboard(TextReader r)
