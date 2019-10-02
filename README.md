@@ -14,20 +14,24 @@ Otherwise:
 UTF-16 encoded files.
 
 ## Examples
+
+### Copy program output to clipboard
 ```
 <program> | utf8clip
 ```
-Places a copy of the UTF-8 output from <program>
-on to the Windows clipboard. Note that most native
-Windows commands like dir do not write UTF-8 output
+Places a copy of the UTF-8 output from <program> on to the Windows clipboard.
+
+Note that most native Windows commands like dir do not write UTF-8 output
 unless the console codepage is changed with chcp.
 
+### Copy file content to clipboard
 ```
 utf8clip < README.md
 ```
 Places a copy of the text from README.md on to the
 Windows clipboard.
 
+### Write clipboard content to console
 ```
 utf8clip
 ```
@@ -35,19 +39,23 @@ Writes the current contents of the Windows clipboard
 to the console.
 
 ## PowerShell Core Examples
+
+### Copy program output to clipboard
 ```
 ls | utf8clip
 ```
-Places a copy of the current directory listing
-on to the Windows clipboard. This works correctly as
-PowerShell Core uses UTF-8 output by default.
+Places a copy of the current directory listing on to the Windows clipboard.
 
+This works correctly as PowerShell Core uses UTF-8 output by default.
+
+### Copy file content to clipboard
 ```
 cat .\README.md | utf8clip
 ```
 Places a copy of the text from README.md on to the
 Windows clipboard.
 
+### Write clipboard content to console
 ```
 utf8clip
 ```
