@@ -17,11 +17,25 @@ namespace BlueMarsh.Utf8Clip
             }
             else if (Console.IsInputRedirected)
             {
-                ReadInToClipboard();
+                // StreamReader will use UTF-8 encoding unless there are byte order marks
+                // (e.g. for a UTF-16 encoded file input)
+                using (var r = new StreamReader(Console.OpenStandardInput()))
+                    ReadToClipboard(r);
+            }
+            else if (Console.IsOutputRedirected)
+            {
+                // StreamWriter will use UTF-8 encoding without byte order mark by default.
+                // When output is redirected we don't modify the console encoding to avoid issues
+                // if the consuming program modifies the console encoding.
+                using (var w = new StreamWriter(Console.OpenStandardOutput()))
+                    WriteToClipboard(w);
             }
             else
             {
-                WriteClipboardToOut();
+                // When output is not redirected, we need to set OutputEncoding so console
+                // will display output correctly.
+                using (new Utf8EncodingOverride())
+                    WriteToClipboard(Console.Out);
             }
         }
         
@@ -36,7 +50,7 @@ namespace BlueMarsh.Utf8Clip
             Console.WriteLine("If started with file/piped input:");
             Console.WriteLine("    Copies the input, interpreted as UTF-8 text, to the Windows clipboard.");
             Console.WriteLine("Otherwise:");
-            Console.WriteLine("    Writes the contents of the Windows clipboard to output as UTF-8 text.");
+            Console.WriteLine("    Prints the contents of the Windows clipboard to output as UTF-8 text.");
             Console.WriteLine();
             Console.WriteLine("Examples:");
             Console.WriteLine("    dir | utf8clip        Places a copy of the current directory");
@@ -49,44 +63,57 @@ namespace BlueMarsh.Utf8Clip
             Console.WriteLine("                          Windows clipboard to the console.");
         }
 
-        private static void ReadInToClipboard()
+        private static void ReadToClipboard(TextReader r)
         {
-            var originalEncoding = Console.InputEncoding;
-            Console.InputEncoding = Encoding.UTF8;
-            try
+            using (var w = new StringWriter())
             {
-                Clipboard.SetText(Console.In.ReadToEnd());
-            }
-            finally
-            {
-                Console.InputEncoding = originalEncoding;
+                CopyContent(r, w);
+                Clipboard.SetText(w.ToString());
             }
         }
 
-        private static void WriteClipboardToOut()
+        private static void WriteToClipboard(TextWriter w)
         {
-            var originalEncoding = Console.OutputEncoding;
-            Console.OutputEncoding = Encoding.UTF8;
-            try
+            using (var r = new StringReader(Clipboard.GetText()))
             {
-                using (var r = new StringReader(Clipboard.GetText()))
-                {
-                    bool first = true;
-                    string? s;
-                    while ((s = r.ReadLine()) != null)
-                    {
-                        if (first)
-                            first = false;
-                        else
-                            Console.WriteLine();
+                CopyContent(r, w);
+            }
+        }
 
-                        Console.Write(s);
-                    }
+        private static void CopyContent(TextReader r, TextWriter w)
+        {
+            bool first = true;
+            string? s;
+            while ((s = r.ReadLine()) != null)
+            {
+                if (first)
+                    first = false;
+                else
+                    w.WriteLine();
+
+                w.Write(s);
+            }
+        }
+
+        private sealed class Utf8EncodingOverride : IDisposable
+        {
+            private readonly Encoding? originalEncoding;
+
+            public Utf8EncodingOverride()
+            {
+                if (!(Console.OutputEncoding is UTF8Encoding))
+                {
+                    this.originalEncoding = Console.OutputEncoding;
+                    Console.OutputEncoding = new UTF8Encoding(
+                        encoderShouldEmitUTF8Identifier: false,
+                        throwOnInvalidBytes: false);
                 }
             }
-            finally
+
+            public void Dispose()
             {
-                Console.OutputEncoding = originalEncoding;
+                if (this.originalEncoding != null)
+                    Console.OutputEncoding = this.originalEncoding;
             }
         }
     }
