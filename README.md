@@ -10,8 +10,7 @@ If started with file/piped input:
 Otherwise:
 - Prints the contents of the Windows clipboard to output as UTF-8 text.
 
-†If there is a byte-order mark in the input it will be respected, e.g. for
-UTF-16 encoded files.
+†If there is a byte-order mark in the input it will be respected, e.g. for UTF-16 encoded files.
 
 ## Examples
 
@@ -21,22 +20,19 @@ UTF-16 encoded files.
 ```
 Places a copy of the UTF-8 output from <program> on to the Windows clipboard.
 
-Note that most native Windows commands like dir do not write UTF-8 output
-unless the console codepage is changed with chcp.
+Note that most native Windows commands like dir do not write UTF-8 output unless the console codepage is changed with chcp.
 
 ### Copy file content to clipboard
 ```
 utf8clip < README.md
 ```
-Places a copy of the text from README.md on to the
-Windows clipboard.
+Places a copy of the text from README.md on to the Windows clipboard.
 
 ### Write clipboard content to console
 ```
 utf8clip
 ```
-Writes the current contents of the Windows clipboard
-to the console.
+Writes the current contents of the Windows clipboard to the console.
 
 ## PowerShell Core Examples
 
@@ -52,12 +48,10 @@ This works correctly as PowerShell Core uses UTF-8 output by default.
 ```
 cat .\README.md | utf8clip
 ```
-Places a copy of the text from README.md on to the
-Windows clipboard.
+Places a copy of the text from README.md on to the Windows clipboard.
 
 ### Write clipboard content to console
 ```
 utf8clip
 ```
-Writes the current contents of the Windows clipboard
-to the console.
+Writes the current contents of the Windows clipboard to the console.
