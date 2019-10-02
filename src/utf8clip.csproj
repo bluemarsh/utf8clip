@@ -8,9 +8,21 @@
     <UseWpf>true</UseWpf>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <FileVersion>1.0.0</FileVersion>
-    <Company>bluemarsh</Company>
+    <Company>bluemarsh labs</Company>
     <Copyright>Copyright (c) 2019 Aaron Meyers</Copyright>
     <PackAsTool>true</PackAsTool>
+    <Description>Copies text from the Windows clipboard to console output and from console input to the Windows clipboard using UTF-8 encoding. Works well with PowerShell Core or console programs that explicitly output UTF-8 text.</Description>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/bluemarsh/utf8clip</RepositoryUrl>
+    <PackageTags>clipboard, console, PowerShell</PackageTags>
+    <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
