@@ -1,7 +1,14 @@
-# utf8clip
+# utf8clip [![NuGet](https://img.shields.io/nuget/v/utf8clip.svg)](https://www.nuget.org/packages/utf8clip/)
 Replacement for clip.exe in Windows that supports both read from/write to clipboard and uses UTF-8 encoding by default.
 
 Works well with PowerShell Core or console programs that explicitly output UTF-8 text.
+
+## Installation
+
+utf8clip is published as a .NET Core Global Tool so you can install it directly from the command line:
+```
+dotnet tool install --global utf8clip
+```
 
 ## Usage
 If started with file/piped input:
