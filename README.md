@@ -10,6 +10,10 @@ utf8clip is published as a .NET Core Global Tool so you can install it directly 
 dotnet tool install --global utf8clip
 ```
 
+You can also download [utf8clip](https://github.com/bluemarsh/utf8clip/releases) and manually copy it to a directory in your PATH.
+
+.NET Core 3.0 runtime is required.
+
 ## Usage
 If started with file/piped input:
 - Copies the input, interpreted as UTF-8 text†, to the Windows clipboard.
