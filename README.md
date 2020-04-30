@@ -12,7 +12,7 @@ dotnet tool install --global utf8clip
 
 You can also download [utf8clip](https://github.com/bluemarsh/utf8clip/releases) and manually copy it to a directory in your PATH.
 
-.NET Core 3.0 runtime is required.
+.NET Core 3.0 or later runtime is required.
 
 ## Usage
 If started with file/piped input:
